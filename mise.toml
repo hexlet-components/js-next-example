@@ -1,0 +1,25 @@
+[tools]
+betterleaks = "latest"
+hk = "2"
+jactionlint = { version = "latest", workflow = "release.yaml" }
+lychee = "latest"
+node = "26"
+"npm:@commitlint/cli" = "latest"
+"npm:@commitlint/config-conventional" = "latest"
+osv-scanner = "latest"
+pkl = "latest"
+pnpm = "12"
+rumdl = "latest"
+typos = "latest"
+
+[tasks.setup]
+description = "Поставить зависимости и git-хуки"
+run = ["pnpm install --frozen-lockfile", "hk install"]
+
+[tasks.check]
+description = "Проверки форматов, кода и ссылок для CI"
+run = "hk check --all"
+
+[tasks.fix]
+description = "Применить автоисправления"
+run = "hk fix --all"

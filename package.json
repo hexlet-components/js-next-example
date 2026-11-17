@@ -1,0 +1,42 @@
+{
+  "name": "@hexlet/js-next-example",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "api": "node api/server.mjs",
+    "typecheck": "next typegen && tsc --noEmit",
+    "lint": "oxlint . && oxfmt --check . && stylelint \"app/**/*.css\" && knip",
+    "lint:fix": "oxfmt . && oxlint --fix . && stylelint --fix \"app/**/*.css\"",
+    "test:api": "node --test tests/api/server.test.mjs",
+    "test:browser": "playwright test",
+    "test": "pnpm test:api && pnpm test:browser",
+    "check": "pnpm lint && pnpm typecheck && pnpm build && pnpm test"
+  },
+  "dependencies": {
+    "next": "16.4.6",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "server-only": "0.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "typescript": "5.9.3",
+    "@playwright/test": "1.65.1",
+    "oxlint": "1.94.0",
+    "oxfmt": "0.79.0",
+    "knip": "6.45.1",
+    "stylelint": "18.0.0",
+    "stylelint-config-standard": "41.0.0"
+  },
+  "type": "module",
+  "license": "MIT",
+  "packageManager": "pnpm@12.21.0",
+  "engines": {
+    "node": ">=26"
+  }
+}

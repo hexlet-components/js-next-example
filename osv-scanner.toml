@@ -1,0 +1,5 @@
+# Единственная находка относится к инструментам разработки и проверяется повторно через месяц.
+[[IgnoredVulns]]
+id = "GHSA-fc5q-39xc-vjpf"
+effectiveUntil = 2026-12-17
+reason = "picomatch 4.0.7 is used only by Knip and Stylelint. These CLI checks receive repository-owned glob patterns, not HTTP input. No patched release is available. Recheck by 2026-12-17."

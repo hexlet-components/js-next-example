@@ -1,0 +1,11 @@
+{
+  "entry": [
+    "tests/api/*.test.mjs",
+    "commitlint.config.mjs"
+  ],
+  "project": [
+    "**/*.{ts,tsx,mjs}",
+    "!.next/**",
+    "!next-env.d.ts"
+  ]
+}
