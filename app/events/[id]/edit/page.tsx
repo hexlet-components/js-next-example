@@ -3,6 +3,7 @@ import { requireUser } from "@/lib/auth";
 import { getEvent } from "@/lib/events";
 import EditForm from "@/components/edit-form";
 import { logout } from "@/app/login/actions";
+import { updateEvent } from "@/app/events/[id]/edit/actions";
 export default async function EditPage({ params }: { params: Promise<{ id: string }> }) {
   const user = await requireUser();
   const { id } = await params;
@@ -13,7 +14,7 @@ export default async function EditPage({ params }: { params: Promise<{ id: strin
     <>
       <h1>Редактирование события</h1>
       <p>Вы вошли как {user.name}</p>
-      <EditForm id={id} title={event.title} />
+      <EditForm action={updateEvent.bind(null, id)} title={event.title} />
       <form action={logout}>
         <button>Выйти</button>
       </form>

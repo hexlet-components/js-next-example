@@ -1,10 +1,16 @@
 "use client";
 import { useActionState } from "react";
-import { updateEvent } from "@/app/events/[id]/edit/actions";
-export default function EditForm({ id, title }: { id: string; title: string }) {
-  const [state, action, pending] = useActionState(updateEvent.bind(null, id), { error: "" });
+type FormState = { error: string };
+export default function EditForm({
+  action,
+  title,
+}: {
+  action: (previous: FormState, formData: FormData) => Promise<FormState>;
+  title: string;
+}) {
+  const [state, formAction, pending] = useActionState(action, { error: "" });
   return (
-    <form action={action}>
+    <form action={formAction}>
       <label>
         Название
         <input name="title" defaultValue={title} required maxLength={100} />

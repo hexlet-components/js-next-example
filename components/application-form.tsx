@@ -1,15 +1,19 @@
 "use client";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
-import { applyForEvent } from "@/app/events/[id]/actions";
 function SubmitButton() {
   const { pending } = useFormStatus();
   return <button disabled={pending}>{pending ? "Отправляем…" : "Отправить заявку"}</button>;
 }
-export default function ApplicationForm({ eventId }: { eventId: string }) {
-  const [state, action] = useActionState(applyForEvent.bind(null, eventId), { error: "" });
+type FormState = { error: string };
+export default function ApplicationForm({
+  action,
+}: {
+  action: (previous: FormState, formData: FormData) => Promise<FormState>;
+}) {
+  const [state, formAction] = useActionState(action, { error: "" });
   return (
-    <form action={action}>
+    <form action={formAction}>
       <h2>Заявка на участие</h2>
       <label>
         Имя
