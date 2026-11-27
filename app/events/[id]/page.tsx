@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getEvent } from "@/lib/events";
 import FavoriteButton from "@/components/favorite-button";
 import ApplicationForm from "@/components/application-form";
+import { applyForEvent } from "@/app/events/[id]/actions";
 export default async function EventPage({
   params,
   searchParams,
@@ -25,7 +26,7 @@ export default async function EventPage({
         <Link href={`/events/${id}/edit`}>Редактировать</Link>
       </p>
       {applied === "1" && <output>Заявка принята</output>}
-      <ApplicationForm eventId={id} />
+      <ApplicationForm action={applyForEvent.bind(null, id)} />
     </>
   );
 }

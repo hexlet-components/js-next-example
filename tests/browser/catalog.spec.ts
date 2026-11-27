@@ -166,3 +166,19 @@ test("справка видна без JavaScript, ответ карточки �
   expect(await response.text()).toContain("Прогулка по набережной");
   await plain.close();
 });
+
+test("заявка до загрузки скриптов показывает ошибку сервера и принимается после исправления", async ({
+  page,
+}) => {
+  // Без чанков приложения форма не гидратируется и уходит обычным POST-запросом браузера.
+  await page.route("**/_next/static/chunks/**", (route) => route.abort());
+  await page.goto("/events/1");
+  await page.getByLabel("Имя", { exact: true }).fill("   ");
+  await page.getByLabel("Email", { exact: true }).fill("irina@example.com");
+  await page.getByRole("button", { name: "Отправить заявку", exact: true }).click();
+  await expect(page.getByRole("alert").filter({ hasText: "Укажите имя и email" })).toBeVisible();
+  await page.getByLabel("Имя", { exact: true }).fill("Ирина");
+  await page.getByLabel("Email", { exact: true }).fill("irina@example.com");
+  await page.getByRole("button", { name: "Отправить заявку", exact: true }).click();
+  await expect(page.getByRole("status").filter({ hasText: "Заявка принята" })).toBeVisible();
+});
